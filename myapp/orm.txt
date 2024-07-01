@@ -1,0 +1,70 @@
+from django.db import models
+
+# Create your models here.
+class Movie(models.Model):
+
+    title=models.CharField(max_length=200)
+
+    year=models.CharField(max_length=200)
+
+    director=models.CharField(max_length=200)
+
+    run_time=models.PositiveIntegerField()
+
+    language=models.CharField(max_length=200)
+
+    genre=models.CharField(max_length=200)
+
+orm query for creating a new movie object
+
+>.Movie.objects.create(title="kgf",year="2018",director="prasanth",run_time="160",language="kannada",genre="action")
+orm query for fetching all movie objects
+>>qs=Movie.objects.all()
+orm query for fetching a movie detail
+>>qs=Movie.objects.get(condn)
+orm query to list part.condn
+>>qs=Movie.objects.filter(condn)
+
+malayalam comedy movies
+>>qs=Movie.objects.filter(language="malayalam",genre="romantic")
+
+runtime greater than 120
+>>qs=Movie.objects.filter(run_time__gt=120)
+
+case insensitive genre action movies
+>>qs=Movie.objects.filter(genre__iexact="action")
+
+case insensitive character contains
+>>qs=Movie.objects.filter(title__icontains="ma")
+
+2 condn in one attribute
+>>qs=MOvie.objects.filter(genre__in=["com","roma"])
+
+update
+>>qs=Movie.objects.filter(id=1).update("run_time="170")
+
+delete
+>>qs=Movie.objects.filter(id=6).delete()
+
+get column o/p->list
+>>qs=MOvie.objects.values_list("language",flat=True).distinct()
+
+acs sorting
+qs=Movie.objects.all().order_by("run_time")
+
+desc sorting
+>>> qs=Movie.objects.all().order_by("-run_time")
+
+larg.run run_time
+>>qs=Movie.objects.all().order_by("-run_time")[0]
+or
+>>> qs=Movie.objects.all().order_by("-run_time").first()
+
+highest 3
+>>qs=Movie.objects.all().order_by("-run_time")[0:3] 
+
+max  import 1st
+qs=Movie.objects.aggregate(Max("run_time"))
+
+min
+qs=Movie.objects.aggregate(Min("run_time")) 
